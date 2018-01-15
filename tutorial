@@ -111,7 +111,7 @@ note:
 For binary-class and multi-class we do not need to set the label to indicate that the data being trained is binary or categorical because the preceding data format and code will determine how many entries need to be typed.
 
 
-
+#SVM教程
 为了使用方便，数据的输入格式有如下的几点特点：
 1.数据必须是可float类型的数据，比如 "5.1,3.5,1.4,0.2"。而不是字符型的数据，比如"bad，good，better"等。如果你的数据是字符型的，你需要自己将其转化为可以float的数字
 2.每个样本数据之间分隔符可以使逗号、分号、空格、制表符中的任意一种。（即",|;| |\t"）
