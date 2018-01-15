@@ -34,12 +34,16 @@ The corresponding original literature can be downloaded from the Internet.
 
 
 # 使用
+这个包的使用只需要掌握其中的两到三个函数就可以了：
+train_SVM()、test_SVM、support_vector()
+如果你对支持向量不感兴趣，那你只需要掌握前面两个函数。
 我会在tutorial中写下如何利用我给的代码对我的相应的数据进行二分类和多分类。
 
 # Use
+The use of this package only need to master one of the two to three functions on it:
+train_SVM (), test_SVM, support_vector ()
+If you are not interested in support vectors, then you only need to know the first two functions.
 I will write in the tutorial how to use the code I give my corresponding data to do binary-classification and multi-classification.
-
-
 
 
 
