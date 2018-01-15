@@ -1,11 +1,9 @@
-# SMO-SVM-Python
-**Implementation of SMO-SVM based on Python code.
-author：yaliangzhang.**
+## SMO-SVM-Python
+### Implementation of SMO-SVM based on Python code. author：yaliangzhang.
 
 中文
 ---
-
-### 这是用Python代码写的基于SVM算法，可用于二分类和多分类。
+这是用Python代码写的基于SVM算法，可用于二分类和多分类。
 
 # 数据
 irisdata.txt 包含所有的鸢尾花数据（三种类别的鸢尾花数据）。
@@ -51,8 +49,7 @@ train_SVM()、test_SVM、support_vector()
 
 English
 ---
-
-### This is an SVM-based algorithm written in Python code that can be used for binary-classification and multi-classification.
+This is an SVM-based algorithm written in Python code that can be used for binary-classification and multi-classification.
 
 # data
 irisdata.txt contains all the iris data (three categories of iris data).
