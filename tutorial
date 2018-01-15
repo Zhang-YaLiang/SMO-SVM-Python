@@ -1,18 +1,239 @@
 # tutorial for SVM 
+
 为了使用方便，数据的输入格式有如下的几点特点：
-1.数据必须是可float类型的数据，比如 5.1,3.5,1.4,0.2。而不是字符型的数据，比如good，better等。如果你的数据是字符型的，你需要自己将其转化为可以float的数字
-2.每个样本数据之间分隔符可以使逗号、分号、空格、制表符中的任意一种。（即,|;| |\t）
-3.标签可以是数字或者字符型的如-1,1或者Iris-setosa，Iris-versicolor，Iris-virginica等
+1.数据必须是可float类型的数据，比如 "5.1,3.5,1.4,0.2"。而不是字符型的数据，比如"bad，good，better"等。如果你的数据是字符型的，你需要自己将其转化为可以float的数字
+2.每个样本数据之间分隔符可以使逗号、分号、空格、制表符中的任意一种。（即",|;| |\t"）
+3.标签可以是数字或者字符型的如"-1","1"或者"Iris-setosa"，"Iris-versicolor"，"Iris-virginica"等
 4.每一行代表一个样本
 5.每一行前面是样本数据，最后一个字符必须是标签
 6.除此以外，输入的文件里不应该有其他的数据，如标题或者结尾的东西
+For ease of use, the data input format has the following characteristics:
+1. Data must be float-type data, such as "5.1, 3.5, 1.4, 0.2". Not character data, such as "bad, good, better" and so on. If your data is character, you need to convert it to a float number
+2. Separator between each sample data can make comma, semicolon, space, tab in any one. (Ie",|;| |\t")
+3. Labels can be numbers or characters such as "-1","1" or "Iris-setosa", "Iris-versicolor", "Iris-virginica", etc.
+4. Each row represents a sample
+5. Each line is preceded by the sample data, the last character must be a label
+6. In addition, there should be no other data in the input file, such as the title or the ending
+
+
 
 当数据准备就绪之后，就可以使用SVM包了
 首先，将SVM.py文件和数据样本下载下来。要想使用SVM包，请复制SVM.py文件到对应的文件夹下。
-之后你可以使用命令：
+之后你可以在你的Spyder或者Python下使用命令：
 import SVM
 导入SVM包。
 如果之后你使用命令
 dir(SVM)
-你就可以看到包内的许多函数和一个叫SVM_parameter的class。这其中最关键的是两个函数：train_SVM()和test_SVM
-我们也主要使用这两个函数
+你就可以看到包内的许多函数和一个叫SVM_parameter的class：
+['MainRoutine',
+ 'SVM_parameter',
+ '__builtins__',
+ '__doc__',
+ '__file__',
+ '__name__',
+ '__package__',
+ 'accuracy',
+ 'dot_product_func',
+ 'examineExample',
+ 'kernel_func',
+ 'learned_func',
+ 'math',
+ 'random',
+ 're',
+ 'support_vector',
+ 'takeStep',
+ 'test_SVM',
+ 'train_SVM']
+这其中最关键的是两个函数：train_SVM()和test_SVM（）
+我们也主要使用这两个函数，如果你还想要支持向量，你可以使用support_vector()这个函数
+
+When the data is ready, you can use the SVM package
+First, download the SVM.py file and data sample. To use the SVM package, copy the SVM.py file to the appropriate folder.
+After that you can use the commands in your Spyder or Python:
+import SVM
+Import SVM package.
+If you later use the command
+dir (SVM)
+You can see many of the functions in the package and a class called SVM_parameter:
+['MainRoutine',
+  'SVM_parameter',
+  '__builtins__',
+  '__doc__',
+  '__file__',
+  '__name__',
+  '__package__',
+  'accuracy',
+  'dot_product_func',
+  'examineExample ',
+  'kernel_func',
+  'learned_func',
+  'math',
+  'random',
+  're',
+  'support_vector',
+  'takeStep',
+  'test_SVM',
+  'train_SVM']
+The most crucial of these are two functions: train_SVM () and test_SVM ()
+We also mainly use these two functions, you can use the function support_vector () if you also want support vectors
+
+
+
+接下来，我们就可以使用train_SVM()函数对输入的数据进行训练了。
+train_SVM()函数有以下几个参数:
+train_SVM(train_file_name,C=1.0,toler=0.001,kernel_type="linear",sigma=0.5)
+你可以看到，这里唯一需要你必须输入的是文件名，其余的参数如C、toler、kernel_type、sigma等都有各自的默认的值
+如果你不想改变他们的值，你可以不用输入，如果你想用你自己的参数，你也可以输入自己想要的值
+例如，在这里，我们使用train_SVM()函数对iris_train_set_bi.txt文件训练：
+bi_a = train_SVM("iris_train_set_bi.txt",kernel_type="rbf")
+这里其余的参数保持默认，我们只改变kernel_type,当然，你也可以使用命令：
+bi_a = train_SVM("iris_train_set_bi.txt",C= 1.0，toler = 0.001，kernel_type="rbf"，sigma = 0.5)
+这会得到同样的结果。bi_a是一个训练好的训练器，实际上bi_a就是SVM_parameter的类，只不过其中存储了我们后面test_SVM()函数用来计算的数据
+bi_a
+Out[263]: <__main__.SVM_parameter instance at 0x10BD65D0>
+
+Next, we can use train_SVM () function to train the input data.
+The train_SVM () function has the following parameters:
+train_SVM (train_file_name, C = 1.0, toler = 0.001, kernel_type = "linear", sigma = 0.5)
+As you can see, the only thing you need to type here is the file name, and the rest of the parameters like C, toler, kernel_type, and sigma have their own default values
+If you do not want to change their values, you do not need to enter them. If you want to use your own parameters, you can also enter the values ​​you want
+For example, here we train the iris_train_set_bi.txt file using the train_SVM () function:
+bi_a = train_SVM ("iris_train_set_bi.txt", kernel_type = "rbf")
+The rest of the parameters here remain the default, we only change kernel_type, of course, you can also use the command:
+bi_a = train_SVM ("iris_train_set_bi.txt", C = 1.0, toler = 0.001, kernel_type = "rbf", sigma = 0.5)
+This will get the same result. bi_a is a well-trained trainer, in fact bi_a is a class of SVM_parameter, except that it stores the data that we use behind test_SVM () to calculate
+bi_a
+Out [263]: <__ main __. SVM_parameter instance at 0x10BD65D0>
+
+
+
+对于训练好的训练器，我们只需要将测试数据和训练器一起放入test_SVM()函数中即可获得我们想要的正确率结果。
+test_tarin()函数也有两个参数:
+test_SVM(test_file_name,classifier)
+其中test_file_name是需要输入的测试文件的名字，而classifier就是上面计算出来的训练器，在这个例子里classifier就是bi_a
+我们用训练好的训练器和test_SVM()函数对测试文件进行二分类：
+bi_b = test_SVM("iris_test_set_bi.txt",bi_a)
+其中对于二分类而言bi_b是由精确率、召回率、准确率组成的tuple，对于多分类而言，test_train()函数返回的只有一个训练的正确率。
+bi_b
+Out[265]: (100.0, 100.0, 100.0)
+
+For a trained trainer, we just need to put the test data together with the trainer in the test_SVM () function to get the correct rate result we want.
+The test_tarin () function also has two parameters:
+test_SVM (test_file_name, classifier)
+Which test_file_name is the name of the test file to be entered, and classifier is the trainer calculated above, in this case the classifier is bi_a
+We classify the test files using the trained trainer and the test_SVM () function:
+bi_b = test_SVM ("iris_test_set_bi.txt", bi_a)
+Where bi_b is the tuple made up of precision, recall, and accuracy for the dichotomies, and the test_train () function returns only one training accuracy for the multiclass.
+bi_b
+Out [265]: (100.0, 100.0, 100.0)
+
+
+多分类代码的思路是先完成第一个类和其余类的二分类问题，再完成第二个类和其余类的二分类问题
+依次进行，这样就可以完成所有类的分类问题了，因此我们也会产生和类数相同的分类器。
+以上是二分类的例子，对于多分类有同样的操作，这里我们训练多分类数据("iris_train_set_multi.txt")并测试多分类数据（
+"iris_test_set_multi.txt"）。
+multi_a = train_SVM("iris_train_set_multi.txt",kernel_type="rbf")
+注意这里的训练器是一个列表，有K个分类目标就存储着K个分类器。因为这里的SVM多分类是根据一对多（或者说：一对剩余）实现的。
+multi_a
+Out[267]: 
+[<__main__.SVM_parameter instance at 0x10BB2EB8>,
+ <__main__.SVM_parameter instance at 0x10D9F5F8>,
+ <__main__.SVM_parameter instance at 0x10D9F800>]
+这里的test_train()函数只返回一个分类的正确率，对于多分类，没有准确率一说，因为多分类的正负样本并不明确
+multi_b = test_SVM("iris_test_set_multi.txt",multi_a)
+multi_b
+Out[269]: 100.0
+
+The idea of multi-classification code is to complete the first category and the remaining categories of the two classification problems, and then complete the second category and the remaining categories of the two classification problem
+Followed by, so that you can complete the classification of all types of problems, so we will produce the same class number and classifier.
+The above is an example of a dichotomy, for the same operation with multiple classes, here we train the multi-class data ("iris_train_set_multi.txt") and test the multi-class data (
+"iris_test_set_multi.txt").
+multi_a = train_SVM ("iris_train_set_multi.txt", kernel_type = "rbf")
+Note that the trainer here is a list, with K classifiers storing K classifiers. This is because SVM multi-classification is based on one-to-many (or a pair of surrogates).
+multi_a
+Out [267]:
+[<__ main __. SVM_parameter instance at 0x10BB2EB8>,
+ <__ main __. SVM_parameter instance at 0x10D9F5F8>,
+ <__ main __. SVM_parameter instance at 0x10D9F800>]
+The test_train () function here returns only the correctness of a category, for multi-category, there is no accuracy rate because the multi-category positive and negative samples are not clear
+multi_b = test_SVM ("iris_test_set_multi.txt", multi_a)
+multi_b
+Out [269]: 100.0
+
+如果你想要查看支持向量以及对应的标签和非0的alpha，可以使用support_vector()函数
+support_vector(classifier)仅需要输入你想查看的支持向量的训练器即可获得结果，support_vector直接返回三个结果：
+非0的alpha值，支持向量以及支持向量对应的标签：
+这里是上面二分类的训练器所产生的数据
+[[0.18581213183027154,
+  0.5848951801760462,
+  0.19152908640634508,
+  0.6959668608396019,
+  0.049807809428850644,
+  0.412629569799037,
+  0.5565532252379977,
+  0.8814147964721386,
+  0.09544125242428612,
+  0.2191338301632534,
+  0.36809753418247637],
+ [[4.4, 2.9, 1.4, 0.2],
+  [4.3, 3.0, 1.1, 0.1],
+  [5.8, 4.0, 1.2, 0.2],
+  [5.7, 4.4, 1.5, 0.4],
+  [5.1, 3.3, 1.7, 0.5],
+  [4.8, 3.4, 1.9, 0.2],
+  [7.0, 3.2, 4.7, 1.4],
+  [4.9, 2.4, 3.3, 1.0],
+  [6.0, 2.2, 4.0, 1.0],
+  [6.2, 2.2, 4.5, 1.5],
+  [5.9, 3.2, 4.8, 1.8]],
+ [1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1]]
+对于多分类而言，支持向量的标签由其所在的训练器决定。如果训练器训练的是第i类的数据，那么第i类的数据标签为1，其余类的标签为-1
+
+You can use the support_vector () function if you want to see the support vector and the corresponding label and non-zero alpha
+support_vector (classifier) ​​Just enter the trainer you want to view the support vector to get the result, support_vector returns three results directly:
+Non-zero alpha, support vector, and support vector labels:
+Here is the data generated by the trainer in the second category above
+[[0.18581213183027154,
+  0.5848951801760462,
+  0.19152908640634508,
+  0.6959668608396019,
+  0.049807809428850644,
+  0.412629569799037,
+  0.5565532252379977,
+  0.8814147964721386,
+  0.09544125242428612,
+  0.2191338301632534,
+  0.36809753418247637],
+ [[4.4, 2.9, 1.4, 0.2],
+  [4.3, 3.0, 1.1, 0.1],
+  [5.8, 4.0, 1.2, 0.2],
+  [5.7, 4.4, 1.5, 0.4],
+  [5.1, 3.3, 1.7, 0.5],
+  [4.8, 3.4, 1.9, 0.2],
+  [7.0, 3.2, 4.7, 1.4],
+  [4.9, 2.4, 3.3, 1.0],
+  [6.0, 2.2, 4.0, 1.0],
+  [6.2, 2.2, 4.5, 1.5],
+  [5.9, 3.2, 4.8, 1.8]],
+ [1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1]]
+For multi-classification, the support vector's label is determined by the trainer in which it is located. If trainer is training the data of class i, the data tag of class i is 1 and the tags of other classes are -1
+
+
+注意：
+对于二分类和多分类我们并不需要去设置标签表明正在训练的数据是二分类或者几分类，因为前面的数据格式和代码会判断输入的数据需要进行几分类。
+note:
+For binary-class and multi-class we do not need to set the label to indicate that the data being trained is binary or categorical because the preceding data format and code will determine how many entries need to be typed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
